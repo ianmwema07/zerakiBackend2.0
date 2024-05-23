@@ -1,10 +1,8 @@
 package com.zeraki.zeraki.controllers;
 
-import com.zeraki.zeraki.Entities.Exercise;
 import com.zeraki.zeraki.Entities.ExerciseScore;
 import com.zeraki.zeraki.responses.CustomResponse;
 import com.zeraki.zeraki.services.ExerciseScoreService;
-import com.zeraki.zeraki.services.ExerciseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

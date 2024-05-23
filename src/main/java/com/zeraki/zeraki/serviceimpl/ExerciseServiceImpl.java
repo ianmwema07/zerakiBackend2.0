@@ -32,8 +32,6 @@ public class ExerciseServiceImpl implements ExerciseService {
     public Exercise upDateExercise(Long id, Exercise exerciseDetails) {
         Exercise exercise = exerciseRepo.findById(id).get();
         exercise.setName(exerciseDetails.getName());
-        exercise.setMarks(exerciseDetails.getMarks());
-        exercise.setRemarks(exerciseDetails.getRemarks());
         return exerciseRepo.save(exercise);
     }
 }

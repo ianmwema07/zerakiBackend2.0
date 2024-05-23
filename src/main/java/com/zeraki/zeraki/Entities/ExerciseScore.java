@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Exercise {
+public class ExerciseScore {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    Long lessonId;
-    String name;
+    Long userId;
+    Long exerciseId;
+    Long marks;
+    String remarks;
 }

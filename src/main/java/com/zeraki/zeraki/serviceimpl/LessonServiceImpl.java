@@ -4,9 +4,11 @@ import com.zeraki.zeraki.Entities.Lesson;
 import com.zeraki.zeraki.repos.LessonRepo;
 import com.zeraki.zeraki.services.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LessonServiceImpl implements LessonService {
 
     @Autowired

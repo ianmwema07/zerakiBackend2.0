@@ -19,5 +19,5 @@ public class AppUserLesson {
     Long id;
     Long userId;
     Long LessonId;
-
+    String CompletionStatus;
 }

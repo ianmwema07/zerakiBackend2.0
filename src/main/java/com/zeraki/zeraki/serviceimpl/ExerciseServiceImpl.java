@@ -4,9 +4,11 @@ import com.zeraki.zeraki.Entities.Exercise;
 import com.zeraki.zeraki.repos.ExerciseRepo;
 import com.zeraki.zeraki.services.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ExerciseServiceImpl implements ExerciseService {
 
     @Autowired

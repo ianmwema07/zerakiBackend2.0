@@ -17,6 +17,7 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+    Long lessonId;
     String name;
     Long marks;
     String remarks;

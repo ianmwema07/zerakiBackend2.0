@@ -6,9 +6,11 @@ import com.zeraki.zeraki.repos.LessonExerciseRepo;
 import com.zeraki.zeraki.services.LessonExerciseService;
 import com.zeraki.zeraki.services.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LessonExerciseServiceImpl implements LessonExerciseService {
 
     @Autowired

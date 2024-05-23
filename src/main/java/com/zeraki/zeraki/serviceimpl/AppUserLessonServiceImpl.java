@@ -4,9 +4,11 @@ import com.zeraki.zeraki.Entities.AppUserLesson;
 import com.zeraki.zeraki.repos.AppUserLessonRepo;
 import com.zeraki.zeraki.services.AppUserLessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AppUserLessonServiceImpl implements AppUserLessonService {
 
     @Autowired

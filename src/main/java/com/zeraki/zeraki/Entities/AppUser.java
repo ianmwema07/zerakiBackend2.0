@@ -16,7 +16,7 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    String Name;
+    String userName;
     String password;
 
 }

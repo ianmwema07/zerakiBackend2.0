@@ -19,4 +19,6 @@ public interface AppUserService {
     //update Specific user
     AppUser upDateUser(Long id, AppUser appUserDetails);
 
+    AppUser findByUserName(String username);
+
 }

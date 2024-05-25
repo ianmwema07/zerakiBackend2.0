@@ -32,8 +32,13 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser upDateUser(Long id, AppUser appUserDetails) {
         AppUser appUser = userRepo.findById(id).get();
-        appUser.setName(appUserDetails.getName());
+        appUser.setUserName(appUserDetails.getUserName());
         appUser.setPassword(appUserDetails.getPassword());
         return userRepo.save(appUser);
+    }
+
+    @Override
+    public AppUser findByUserName(String username) {
+        return userRepo.findByUserName(username);
     }
 }

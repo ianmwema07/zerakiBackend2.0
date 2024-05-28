@@ -15,11 +15,12 @@ public class UserProgressServiceImpl implements UserProgressService {
     UserProgressRepo userProgressRepo;
     @Override
     public List<UserProgress> findAllUserProgress() {
-        List<UserProgress> userProgresses = new ArrayList<>();
-      for(int i = 0; i < userProgressRepo.findAll().size() ; i++){
-           userProgresses.add(userProgressRepo.findById((long) i));
-      }
-      return userProgresses;
+      return userProgressRepo.findAll();
+    }
+
+    @Override
+    public List<UserProgress> findAllByUserId(Long id) {
+        return userProgressRepo.findAllByUserId(id);
     }
 
 

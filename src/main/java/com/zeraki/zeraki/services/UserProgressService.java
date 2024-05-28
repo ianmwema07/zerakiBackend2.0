@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserProgressService {
     List<UserProgress> findAllUserProgress();
+
+    List<UserProgress> findAllByUserId(Long id);
 }

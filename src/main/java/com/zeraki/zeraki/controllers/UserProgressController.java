@@ -1,8 +1,11 @@
 package com.zeraki.zeraki.controllers;
 
 import com.zeraki.zeraki.Entities.LessonExercise;
+import com.zeraki.zeraki.Entities.UserProgress;
+import com.zeraki.zeraki.Logic.Logic;
 import com.zeraki.zeraki.auth.utils.JwtTokenUtil;
 import com.zeraki.zeraki.responses.CustomResponse;
+import com.zeraki.zeraki.services.UserProgressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/api/userprogress")
 public class UserProgressController {
 
     Logger logger = LoggerFactory.getLogger(UserProgressController.class);
@@ -26,9 +29,17 @@ public class UserProgressController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @RequestMapping(value = "/lesson/exercise",method = RequestMethod.POST)
-    public ResponseEntity<CustomResponse> assignExerciseToLesson(@RequestHeader(value = "Authorization", required = false)String token, @RequestBody LessonExercise lessonExercise) {
-        logger.info("delete lesson  request :: " + lessonExercise.toString());
+    @Autowired
+    private UserProgressService userProgressService;
+
+    @Autowired
+    private Logic logic;
+
+
+    //Getting all the user progress
+    @RequestMapping( value = "/getUserProgress/{userId}",method = RequestMethod.GET)
+    public ResponseEntity<CustomResponse> getUserProgress(@PathVariable Long userId, @RequestHeader(value = "Authorization", required = false)String token, @RequestBody Object requestObject) {
+        logger.info("delete lesson  request :: " + requestObject.toString());
         if (token == null) {
             logger.error("The token is empty :: ");
             CustomResponse customResponse = new CustomResponse("Token is required to proceed", HttpStatus.UNAUTHORIZED);
@@ -38,8 +49,9 @@ public class UserProgressController {
             String tokenCheckResult = jwtTokenUtil.validateToken(realToken);
             if (tokenCheckResult.equalsIgnoreCase("valid")) {
                 try {
-
-                    CustomResponse customResponse = new CustomResponse("exercise assigned Successfully", "exercise assigned successfully");
+                   List<UserProgress> userProgressList =  userProgressService.findAllByUserId(userId);
+                   List<UserProgress> ammendedList = logic.addRemarks(userProgressList);
+                    CustomResponse customResponse = new CustomResponse("User's progress list fetched successfully", ammendedList);
                     return new ResponseEntity<CustomResponse>(customResponse, HttpStatus.OK);
                 } catch (Exception exception) {
                     logger.error("Exception has occurred :: " + exception.getMessage());

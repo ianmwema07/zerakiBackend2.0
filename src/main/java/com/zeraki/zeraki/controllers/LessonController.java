@@ -3,8 +3,10 @@ package com.zeraki.zeraki.controllers;
 
 import com.zeraki.zeraki.Entities.AppUser;
 import com.zeraki.zeraki.Entities.Lesson;
+import com.zeraki.zeraki.Entities.LessonExercise;
 import com.zeraki.zeraki.auth.utils.JwtTokenUtil;
 import com.zeraki.zeraki.responses.CustomResponse;
+import com.zeraki.zeraki.services.LessonExerciseService;
 import com.zeraki.zeraki.services.LessonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,9 @@ public class LessonController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    LessonExerciseService lessonExerciseService;
 
     //Create lesson endpoint
     @RequestMapping(value = "/create",method = RequestMethod.POST)
@@ -104,6 +109,35 @@ public class LessonController {
                 } catch (Exception exception) {
                     logger.error("Exception has occurred :: " + exception.getMessage());
                     CustomResponse errorResponse = new CustomResponse(exception.getMessage(), "An error has occured");
+                    return new ResponseEntity<CustomResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                CustomResponse errorResponse = new CustomResponse(tokenCheckResult, "An error has occured");
+                return new ResponseEntity<CustomResponse>(errorResponse, HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
+
+    //Assign an exercise to a lessonController.
+    @RequestMapping(value = "/lesson/exercise",method = RequestMethod.POST)
+    public ResponseEntity<CustomResponse> assignExerciseToLesson(@RequestHeader(value = "Authorization", required = false)String token,  @RequestBody LessonExercise lessonExercise) {
+        logger.info("delete lesson  request :: " + lessonExercise.toString());
+        if (token == null) {
+            logger.error("The token is empty :: ");
+            CustomResponse customResponse = new CustomResponse("Token is required to proceed", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<CustomResponse>(customResponse, HttpStatus.UNAUTHORIZED);
+        } else {
+            String realToken = token.substring(7);
+            String tokenCheckResult = jwtTokenUtil.validateToken(realToken);
+            if (tokenCheckResult.equalsIgnoreCase("valid")) {
+                try {
+                    lessonExerciseService.createLessonExercise(lessonExercise);
+                    CustomResponse customResponse = new CustomResponse("exercise assigned Successfully", "exercise assigned successfully");
+                    return new ResponseEntity<CustomResponse>(customResponse, HttpStatus.OK);
+                } catch (Exception exception) {
+                    logger.error("Exception has occurred :: " + exception.getMessage());
+                    CustomResponse errorResponse = new CustomResponse(exception.getMessage(), "Exercise was not assigned successfully");
                     return new ResponseEntity<CustomResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             } else {

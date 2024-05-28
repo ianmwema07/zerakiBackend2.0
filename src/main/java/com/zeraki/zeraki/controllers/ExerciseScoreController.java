@@ -1,6 +1,7 @@
 package com.zeraki.zeraki.controllers;
 
 import com.zeraki.zeraki.Entities.ExerciseScore;
+import com.zeraki.zeraki.Logic.ExerciseUserExistence;
 import com.zeraki.zeraki.auth.utils.JwtTokenUtil;
 import com.zeraki.zeraki.responses.CustomResponse;
 import com.zeraki.zeraki.services.ExerciseScoreService;
@@ -27,6 +28,9 @@ public class ExerciseScoreController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private ExerciseUserExistence exerciseUserExistence;
 
     //Create Exercise endpoint
     @RequestMapping(value = "/create",method = RequestMethod.POST)

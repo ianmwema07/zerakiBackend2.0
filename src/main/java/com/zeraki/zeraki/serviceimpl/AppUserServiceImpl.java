@@ -41,4 +41,9 @@ public class AppUserServiceImpl implements AppUserService {
     public AppUser findByUserName(String username) {
         return userRepo.findByUserName(username);
     }
+
+    @Override
+    public AppUser findById(Long id) {
+        return userRepo.findAppUserById(id);
+    }
 }

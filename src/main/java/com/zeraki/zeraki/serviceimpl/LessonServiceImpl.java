@@ -34,4 +34,9 @@ public class LessonServiceImpl implements LessonService {
         lesson.setName(lessonDetails.getName());
         return lessonRepo.save(lesson);
     }
+
+    @Override
+    public Lesson findLessonById(Long id) {
+        return lessonRepo.findLessonById(id);
+    }
 }

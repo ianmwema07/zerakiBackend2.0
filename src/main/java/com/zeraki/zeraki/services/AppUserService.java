@@ -21,4 +21,6 @@ public interface AppUserService {
 
     AppUser findByUserName(String username);
 
+    AppUser findById(Long id);
+
 }

@@ -16,4 +16,7 @@ public interface LessonService {
 
     //update Specific lesson
     Lesson  upDateLesson(Long id,Lesson lessonDetails);
+
+    //find lesson by id
+    Lesson findLessonById(Long id);
 }

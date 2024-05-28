@@ -32,6 +32,9 @@ public class UserProgress {
 
     Long userId;
 
+    public UserProgress(int i) {
+    }
+
     public Long getUserId() {
         return userId;
     }
